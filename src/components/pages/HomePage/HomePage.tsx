@@ -11,6 +11,7 @@ import ExampleTable from "@/components/caption/ExampleTable"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
 import ExampleImage from "@/components/caption/ExampleImage"
+import Seo from "@/components/common/Seo"
 
 const HomePage: React.FC = () => {
   const [file, setFile] = useState<File | null>(null)
@@ -54,6 +55,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div css={s.pageStyle}>
+      <Seo />
       <p css={s.titleStyle}>
         <span>Excelデータから</span><span>展覧会の</span><span>キャプションを</span><span>生成</span>
       </p>
