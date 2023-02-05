@@ -29,6 +29,13 @@ const ExampleTable: React.FC = () => {
             <td css={s.cellStyle}>油彩</td>
             <td css={s.cellStyle}>F8</td>
           </tr>
+          <tr css={s.rowStyle}>
+            <td css={s.cellStyle}>…</td>
+            <td css={s.cellStyle}>…</td>
+            <td css={s.cellStyle}>…</td>
+            <td css={s.cellStyle}>…</td>
+            <td css={s.cellStyle}>…</td>
+          </tr>
         </tbody>
       </table>
     </div>

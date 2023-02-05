@@ -1,3 +1,4 @@
+import OpenInNewIcon from '@/components/icons/OpenInNewIcon'
 import * as s from './FooterStyle'
 
 const YEAR = 2023
@@ -8,7 +9,13 @@ const Footer: React.FC = () => {
 
   return (
     <footer css={s.footerStyle}>
-      &copy; {copyYear} Shintaro Aoi
+      <span>
+        &copy; {copyYear} Shintaro Aoi
+      </span>
+      <a href="https://twitter.com/moyotsukai" target="_blank" rel="noopener noreferrer" css={s.linkStyle}>
+        Twitter
+        <OpenInNewIcon size={14} />
+      </a>
     </footer>
   )
 }

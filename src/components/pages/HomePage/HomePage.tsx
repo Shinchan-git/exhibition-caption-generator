@@ -61,7 +61,7 @@ const HomePage: React.FC = () => {
         <CaptionCard title="Excel">
           <div>
             <p>
-              このようなExcelファイルを作成してください。
+              以下のようなExcelファイルを作成してください。
             </p>
             <ExampleTable />
           </div>
