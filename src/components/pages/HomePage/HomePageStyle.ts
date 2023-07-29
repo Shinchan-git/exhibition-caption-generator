@@ -44,7 +44,6 @@ export const inputFileLabelStyle = (isPrimary: boolean) => css`
   font-size: 16px;
   border-radius: 6px;
   font-weight: 500;
-  cursor: pointer;
   border: ${isPrimary ? "none" : "solid 1px #0080ff"};
   color: ${isPrimary ? "#fff" : "#0080ff"};
   background-color: ${isPrimary ? "#0080ff" : "#fff"};

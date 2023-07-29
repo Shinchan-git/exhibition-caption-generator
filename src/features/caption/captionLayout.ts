@@ -34,7 +34,7 @@ export const captionLayout = ({ data, index }: Props): CaptionLayout => {
   const columnIndex = indexWithinPage % COLUMN_COUNT
 
   //Rectangle
-  const rectangleSize: Size = { width: 110, height: 58 }
+  const rectangleSize: Size = { width: 100, height: 52 }
   const rectangleMargin: Size = {
     width: (PAGE_SIZE.width - rectangleSize.width * COLUMN_COUNT) / 2,
     height: (PAGE_SIZE.height - rectangleSize.height * ROW_COUNT) / 2
@@ -45,25 +45,25 @@ export const captionLayout = ({ data, index }: Props): CaptionLayout => {
   }
 
   //Title
-  const maxTtitleSize = 20
-  const titleSize = Math.min(maxTtitleSize, Math.max(14, maxTtitleSize - (data.title.length - 12)))
+  const maxTtitleSize = 19
+  const titleSize = Math.min(maxTtitleSize, Math.max(14, maxTtitleSize - (countTextLengthInZenakuLength(data.title) - 12)))
   const titlePosition: Position = { x: 8.5, y: 8.6 + maxTtitleSize / 3 }
 
   //Name
-  const nameSize = 15
+  const nameSize = 14
   const namePosition: Position = { x: titlePosition.x, y: titlePosition.y + 8 + nameSize / 3 }
 
   //Grade
-  const gradeSize = 14
+  const gradeSize = 13
   const gradePosition: Position = { x: namePosition.x + 36, y: namePosition.y }
 
   //Size
-  const sizeSize = 12
+  const sizeSize = 11
   const sizePotision: Position = { x: rectangleSize.width - titlePosition.x, y: rectangleSize.height - titlePosition.x }
 
   //Materials
-  const materialsSize = 12
-  const materialsPosition: Position = { x: sizePotision.x, y: sizePotision.y - 6 - sizeSize / 3 }
+  const materialsSize = 11
+  const materialsPosition: Position = { x: sizePotision.x, y: sizePotision.y - 4 - sizeSize / 3 }
 
   return {
     title: { x: rectanglePosition.x + titlePosition.x, y: rectanglePosition.y + titlePosition.y, size: titleSize },
@@ -73,4 +73,13 @@ export const captionLayout = ({ data, index }: Props): CaptionLayout => {
     size: { x: rectanglePosition.x + sizePotision.x, y: rectanglePosition.y + sizePotision.y, size: sizeSize },
     rect: { x: rectanglePosition.x, y: rectanglePosition.y, width: rectangleSize.width, height: rectangleSize.height }
   }
+}
+
+
+const countTextLengthInZenakuLength = (text: string): number => {
+  let length = 0
+  for (let i = 0; i < text.length; i++) {
+    (text[i].match(/[ -~]/)) ? length += 0.7 : length += 1
+  }
+  return length
 }
