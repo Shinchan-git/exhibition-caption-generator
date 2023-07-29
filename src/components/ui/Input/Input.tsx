@@ -2,12 +2,16 @@ import React from "react"
 import * as s from "./InputStyle"
 
 type Props = React.ComponentProps<"input"> & {
-  isPrimary?: boolean
+  isPrimary?: boolean,
+  isLoading?: boolean
 }
 
 const Input: React.FC<Props> = ({ isPrimary, ...props }: Props) => {
   return (
-    <input {...props} css={() => s.inputStyle(isPrimary ?? false)} />
+    <input
+      {...props}
+      css={() => s.inputStyle(isPrimary ?? false)}
+    />
   )
 }
 

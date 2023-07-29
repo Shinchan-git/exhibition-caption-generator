@@ -11,13 +11,14 @@ import ExampleTable from "@/components/caption/ExampleTable"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
 import ExampleImage from "@/components/caption/ExampleImage"
-import Seo from "@/components/common/Seo"
+import DownloadIcon from "@/components/icons/DownloadIcon"
 
 const HomePage: React.FC = () => {
   const [file, setFile] = useState<File | null>(null)
   const [excelData, setExcelData] = useState<[object] | null>(null)
   const [pdf, setPdf] = useState<JsPDF | null>(null)
   const [pdfDataUrl, setPdfDataUrl] = useState<string | null>(null)
+  const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false)
 
   //Set PDF
   useEffect(() => {
@@ -30,6 +31,7 @@ const HomePage: React.FC = () => {
       setPdf(doc)
       const url = getPdfDataUrl(doc)
       setPdfDataUrl(url)
+      setIsSubmitLoading(false)
     })
   }, [excelData])
 
@@ -42,6 +44,8 @@ const HomePage: React.FC = () => {
 
   const onSubmitFile: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault()
+    setIsSubmitLoading(true)
+
     if (!file) { return }
     asyncTask(async () => {
       const data = await toExcelData(file)
@@ -55,7 +59,6 @@ const HomePage: React.FC = () => {
 
   return (
     <div css={s.pageStyle}>
-      <Seo />
       <p css={s.titleStyle}>
         <span>Excelデータから</span><span>展覧会の</span><span>キャプションを</span><span>生成</span>
       </p>
@@ -71,7 +74,11 @@ const HomePage: React.FC = () => {
             <div css={s.inputFileLabelContainerStyle}>
               <label htmlFor="file" css={() => s.inputFileLabelStyle(!file)}>
                 Excelファイルを選択
-                <Input type="file" accept=".xlsx" onChange={onChangeFile} />
+                <Input
+                  type="file"
+                  accept=".xlsx"
+                  onChange={onChangeFile}
+                />
               </label>
               {file &&
                 <span css={s.fileNameStyle}>
@@ -80,7 +87,19 @@ const HomePage: React.FC = () => {
               }
             </div>
             {file &&
-              <Input type="submit" value="キャプションを生成" isPrimary={true} />
+              (isSubmitLoading
+                ? <Button
+                  style="contained"
+                  isLoading={true}
+                >
+                  Processing...
+                </Button>
+                : <Input
+                  type="submit"
+                  value="キャプションを生成"
+                  isPrimary={true}
+                  isLoading={isSubmitLoading}
+                />)
             }
           </form>
         </CaptionCard>
@@ -96,7 +115,11 @@ const HomePage: React.FC = () => {
             ?
             <div css={s.iframeContainerStyle} >
               <Iframe src={pdfDataUrl + "#toolbar=0"} />
-              <Button onClick={onClickDownload}>
+              <Button
+                onClick={onClickDownload}
+                style="text"
+              >
+                <DownloadIcon size={24} />
                 ダウンロード
               </Button>
             </div>

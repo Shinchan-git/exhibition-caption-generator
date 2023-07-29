@@ -23,5 +23,6 @@ export const inputStyle = (isPrimary: boolean) => css`
     width: 100%;
     height: 100%;
     cursor: pointer;
+    z-index: 1000;
   }
 `
