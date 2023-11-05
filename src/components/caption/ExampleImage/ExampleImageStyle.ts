@@ -7,5 +7,5 @@ export const exampleImageContainerStyle = css`
 
 export const exampleImageStyle = css`
   transform: rotate(-3deg);
-  box-shadow: 0px 6px 10px 0px rgba(116, 175, 231, 0.2);
+  filter: drop-shadow(0px 5px 5px rgba(116, 175, 231, 0.2));
 `
