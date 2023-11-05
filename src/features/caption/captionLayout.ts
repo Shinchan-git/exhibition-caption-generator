@@ -20,6 +20,7 @@ type CaptionElementLayout = Position & {
 }
 
 type CaptionLayout = CaptionData<CaptionElementLayout> & {
+  idBackground: Position & { radius: number },
   rect: Position & Size
 }
 
@@ -65,12 +66,22 @@ export const captionLayout = ({ data, index }: Props): CaptionLayout => {
   const materialsSize = 11
   const materialsPosition: Position = { x: sizePotision.x, y: sizePotision.y - 4 - sizeSize / 3 }
 
+  //ID
+  const idSize = 7
+  const idPosition: Position = { x: rectangleSize.width - 6, y: 7 }
+
+  //ID backgroung
+  const idBackgroundSize = 2.2
+  const idBackgroundPosition: Position = { x: idPosition.x - 0.1, y: idPosition.y - 0.9 }
+
   return {
     title: { x: rectanglePosition.x + titlePosition.x, y: rectanglePosition.y + titlePosition.y, size: titleSize },
     name: { x: rectanglePosition.x + namePosition.x, y: rectanglePosition.y + namePosition.y, size: nameSize },
     grade: { x: rectanglePosition.x + gradePosition.x, y: rectanglePosition.y + gradePosition.y, size: gradeSize },
     materials: { x: rectanglePosition.x + materialsPosition.x, y: rectanglePosition.y + materialsPosition.y, size: materialsSize },
     size: { x: rectanglePosition.x + sizePotision.x, y: rectanglePosition.y + sizePotision.y, size: sizeSize },
+    id: { x: rectanglePosition.x + idPosition.x, y: rectanglePosition.y + idPosition.y, size: idSize },
+    idBackground: { x: rectanglePosition.x + idBackgroundPosition.x, y: rectanglePosition.y + idBackgroundPosition.y, radius: idBackgroundSize },
     rect: { x: rectanglePosition.x, y: rectanglePosition.y, width: rectangleSize.width, height: rectangleSize.height }
   }
 }

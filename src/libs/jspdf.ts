@@ -37,6 +37,7 @@ export const createCaptionPdfWithJsPdf = (captionData: CaptionData[]): Promise<J
       //Title
       doc.setFont("GenShinGothicMedium")
       doc.setFontSize(layout.title.size)
+      doc.setTextColor("#000000")
       doc.text(data.title, layout.title.x, layout.title.y)
 
       //Name
@@ -55,6 +56,18 @@ export const createCaptionPdfWithJsPdf = (captionData: CaptionData[]): Promise<J
       //Size
       doc.setFontSize(layout.size.size)
       doc.text(data.size, layout.size.x, layout.size.y, { align: "right" })
+
+      if (data.id !== "") {
+        //ID background
+        doc.setFillColor("#000000")
+        doc.circle(layout.idBackground.x, layout.idBackground.y, layout.idBackground.radius, "F")
+
+        //ID
+        doc.setFont("GenShinGothicMedium")
+        doc.setFontSize(layout.id.size)
+        doc.setTextColor("#FFFFFF")
+        doc.text(data.id, layout.id.x, layout.id.y, { align: "center" })
+      }
 
       //Rectangle
       doc.rect(layout.rect.x, layout.rect.y, layout.rect.width, layout.rect.height)

@@ -12,6 +12,7 @@ const ExampleTable: React.FC = () => {
             <th css={s.cellStyle}>所属</th>
             <th css={s.cellStyle}>画材</th>
             <th css={s.cellStyle}>サイズ</th>
+            <th css={s.cellStyle}>番号</th>
           </tr>
         </thead>
         <tbody css={s.defaultStyle}>
@@ -21,6 +22,7 @@ const ExampleTable: React.FC = () => {
             <td css={s.cellStyle}>１年</td>
             <td css={s.cellStyle}>水彩</td>
             <td css={s.cellStyle}>F4</td>
+            <td css={s.cellStyle}>1</td>
           </tr>
           <tr css={s.rowStyle}>
             <td css={s.cellStyle}>無題</td>
@@ -28,8 +30,10 @@ const ExampleTable: React.FC = () => {
             <td css={s.cellStyle}>２年</td>
             <td css={s.cellStyle}>油彩</td>
             <td css={s.cellStyle}>F8</td>
+            <td css={s.cellStyle}>2</td>
           </tr>
           <tr css={s.rowStyle}>
+            <td css={s.cellStyle}>…</td>
             <td css={s.cellStyle}>…</td>
             <td css={s.cellStyle}>…</td>
             <td css={s.cellStyle}>…</td>
