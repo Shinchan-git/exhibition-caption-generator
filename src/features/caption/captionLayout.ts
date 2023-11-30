@@ -1,4 +1,4 @@
-import { CaptionData } from "./toCaptionData"
+import { CaptionData } from "./toCaptionTableData"
 
 type Props = {
   data: CaptionData

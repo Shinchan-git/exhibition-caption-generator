@@ -1,11 +1,11 @@
 import { FILE_NAME } from "@/constants/constants";
 import { captionLayout, COLUMN_COUNT, ROW_COUNT } from "@/features/caption/captionLayout";
-import { CaptionData } from "@/features/caption/toCaptionData"
+import { CaptionTableData } from "@/features/caption/toCaptionTableData"
 import { jsPDF } from "jspdf"
 
 export type JsPDF = jsPDF
 
-export const createCaptionPdfWithJsPdf = (captionData: CaptionData[]): Promise<JsPDF> => {
+export const createCaptionPdfWithJsPdf = (captionTableData: CaptionTableData): Promise<JsPDF> => {
   return new Promise(async (resolve) => {
     const doc = new jsPDF({
       orientation: "landscape",
@@ -26,8 +26,8 @@ export const createCaptionPdfWithJsPdf = (captionData: CaptionData[]): Promise<J
     doc.addFileToVFS("GenShinGothic-Medium.ttf", genShinGothicMediumFontBytes)
     doc.addFont("GenShinGothic-Medium.ttf", "GenShinGothicMedium", "normal")
 
-    for (let i = 0; i < captionData.length; i++) {
-      const data = captionData[i]
+    for (let i = 0; i < captionTableData.length; i++) {
+      const data = captionTableData[i]
       const layout = captionLayout({ data: data, index: i })
       const itemCountWithinPage = COLUMN_COUNT * ROW_COUNT
       if (i !== 0 && i % itemCountWithinPage === 0) {
