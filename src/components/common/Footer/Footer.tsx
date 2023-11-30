@@ -12,8 +12,8 @@ const Footer: React.FC = () => {
       <span>
         &copy; {copyYear} Shintaro Aoi
       </span>
-      <a href="https://twitter.com/moyotsukai" target="_blank" rel="noopener noreferrer" css={s.linkStyle}>
-        Twitter
+      <a href="https://www.moyotsukai.dev/" target="_blank" rel="noopener noreferrer" css={s.linkStyle}>
+        Portfolio
         <OpenInNewIcon size={14} />
       </a>
     </footer>

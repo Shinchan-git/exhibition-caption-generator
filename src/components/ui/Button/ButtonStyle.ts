@@ -30,7 +30,7 @@ const containedButtonStyle = (isLoading: boolean) => css`
 `
 
 const textButtonStyle = css`
-  margin: 0 auto;
+  /* margin: 0 auto; */
   font-size: 18px;
   border: none;
   color: #0080ff;

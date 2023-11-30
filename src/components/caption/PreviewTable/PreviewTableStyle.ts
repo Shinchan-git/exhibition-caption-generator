@@ -2,13 +2,14 @@ import { css } from "@emotion/react"
 
 export const containerStyle = css`
   padding: 16px 8px;
+  max-height: 430px;
+  overflow: scroll;
 `
 
 export const tableStyle = css`
   width: 100%;
   border: solid 1px #c6cacc;
   border-radius: 2px;
-  overflow: hidden;
   background-color: #fcfeff;
 `
 
@@ -23,4 +24,10 @@ export const rowStyle = css`
 export const cellStyle = css`
   border: solid 0.5px #c6cacc;
   padding: 2px;
+`
+
+export const cellAllPaddingStyle = css`
+  border: none;
+  padding: 4px;
+  padding-bottom: 0;
 `
