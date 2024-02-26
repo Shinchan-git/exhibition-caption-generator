@@ -1,5 +1,5 @@
-import React from "react"
-import { createCaptionPdfWithJsPdf, getPdfDataUrl, JsPDF, savePdf } from "@/libs/jspdf"
+import React, { useEffect } from "react"
+import { createCaptionPdfWithJsPdf, FontConfig, getPdfDataUrl, JsPDF, savePdf } from "@/libs/jspdf"
 import { asyncTask } from "@/utils/asyncTask"
 import { useState } from "react"
 import Iframe from "../../ui/Iframe"
@@ -8,24 +8,38 @@ import CaptionCard from "@/components/caption/CaptionCard"
 import Button from "@/components/ui/Button"
 import ExampleImage from "@/components/caption/ExampleImage"
 import DownloadIcon from "@/components/icons/DownloadIcon"
-import PasteArea from "@/components/caption/pasteArea"
+import PasteArea from "@/components/caption/PasteArea"
 import { CaptionTableData } from "@/features/caption/toCaptionTableData"
 import PreviewTable from "@/components/caption/PreviewTable"
 import Spacer from "@/components/ui/Spacer"
 import FlexContainer from "@/components/ui/FlexContainer"
+import CaptionConfig from "@/components/caption/CaptionConfig"
 
 const HomePage: React.FC = () => {
   const [captionTableData, setCaptionTableData] = useState<CaptionTableData | null>(null)
   const [pdf, setPdf] = useState<JsPDF | null>(null)
   const [pdfDataUrl, setPdfDataUrl] = useState<string | null>(null)
+  const [fontConfig, setFontConfig] = useState<FontConfig>("GenShinGothic")
+  const [showId, setShowId] = useState<boolean>(true)
   const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false)
 
-  const onCreateCaption = () => {
+  //Create caption when configs are changed
+  useEffect(() => {
+    if (pdfDataUrl) {
+      createCaption()
+    }
+  }, [fontConfig, showId])
+
+  const createCaption = () => {
     if (!captionTableData) { return }
     setIsSubmitLoading(true)
 
     asyncTask(async () => {
-      const doc = await createCaptionPdfWithJsPdf(captionTableData)
+      const doc = await createCaptionPdfWithJsPdf({
+        captionTableData: captionTableData,
+        fontConfig: fontConfig,
+        showId: showId
+      })
       setPdf(doc)
       const url = getPdfDataUrl(doc)
       setPdfDataUrl(url)
@@ -33,8 +47,13 @@ const HomePage: React.FC = () => {
     })
   }
 
+  const onCreateCaption = () => {
+    createCaption()
+  }
+
   const onClear = () => {
     setCaptionTableData(null)
+    setPdfDataUrl(null)
   }
 
   const onClickDownload: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -55,8 +74,13 @@ const HomePage: React.FC = () => {
           </div>
 
           {captionTableData &&
-            <div>
-              <Spacer size={12} />
+            <div css={s.buttonGroupContainer}>
+              <Spacer size={28} />
+              <CaptionConfig
+                setFontConfig={setFontConfig}
+                setShowId={setShowId}
+              />
+              <Spacer size={28} />
               <FlexContainer justifyContent="left">
                 <Button
                   style="contained"
@@ -93,7 +117,7 @@ const HomePage: React.FC = () => {
                   onClick={onClickDownload}
                   style="text"
                 >
-                  <DownloadIcon size={24} />
+                  <DownloadIcon size={28} />
                   ダウンロード
                 </Button>
               </FlexContainer>
