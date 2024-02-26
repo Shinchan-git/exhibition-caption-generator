@@ -21,6 +21,10 @@ export const containerStyle = css`
   }
 `
 
+export const buttonGroupContainer = css`
+  padding: 0 8px;
+`
+
 export const centerStyle = css`
   width: 5%auto;
   padding: 8px 20px;

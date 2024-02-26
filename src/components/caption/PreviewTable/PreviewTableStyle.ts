@@ -1,3 +1,4 @@
+import { borderColor } from "@/styles/colors"
 import { css } from "@emotion/react"
 
 export const containerStyle = css`
@@ -8,7 +9,7 @@ export const containerStyle = css`
 
 export const tableStyle = css`
   width: 100%;
-  border: solid 1px #c6cacc;
+  border: solid 1px ${borderColor};
   border-radius: 2px;
   background-color: #fcfeff;
 `
@@ -18,11 +19,11 @@ export const defaultStyle = css`
 `
 
 export const rowStyle = css`
-  border: solid 1px #c6cacc;
+  border: solid 1px ${borderColor};
 `
 
 export const cellStyle = css`
-  border: solid 0.5px #c6cacc;
+  border: solid 0.5px ${borderColor};
   padding: 2px;
 `
 

@@ -40,7 +40,7 @@ const PreviewTable: React.FC<Props> = ({ children, captionTableData }) => {
         )
         : (
           <div>
-            <p>表データを作成し、コピー＆ペーストしてください。</p>
+            <p>Excelなどで表データを作成し、コピー＆ペーストしてください。</p>
             <Spacer size={8} />
             <table css={s.tableStyle}>
               <thead css={s.defaultStyle}>

@@ -5,26 +5,44 @@ import { jsPDF } from "jspdf"
 
 export type JsPDF = jsPDF
 
-export const createCaptionPdfWithJsPdf = (captionTableData: CaptionTableData): Promise<JsPDF> => {
+export type FontConfig = "GenShinGothic" | "ShipporiMincho"
+
+export const createCaptionPdfWithJsPdf = ({
+  captionTableData,
+  fontConfig,
+  showId
+}: {
+  captionTableData: CaptionTableData,
+  fontConfig: FontConfig,
+  showId: boolean
+}): Promise<JsPDF> => {
   return new Promise(async (resolve) => {
     const doc = new jsPDF({
       orientation: "landscape",
       format: "A4"
     })
 
-    const genShinGothicRegularFontBytes = await fetch("/GenShinGothic-Regular.ttf").then(async (res) => {
-      const arrayBuffer = await res.arrayBuffer()
-      return arrayBufferToBinaryString(arrayBuffer)
-    })
-    const genShinGothicMediumFontBytes = await fetch("/GenShinGothic-Medium.ttf").then(async (res) => {
-      const arrayBuffer = await res.arrayBuffer()
-      return arrayBufferToBinaryString(arrayBuffer)
-    })
+    const GENSHIN_GOTHIC_REGULAR = "GenShinGothicRegular"
+    const GENSHIN_GOTHIC_MEDIUM = "GenShinGothicMedium"
+    if (fontConfig === "GenShinGothic") {
+      const genShinGothicRegularFontBytes = await loadFont("/GenShinGothic-Regular.ttf")
+      const genShinGothicMediumFontBytes = await loadFont("/GenShinGothic-Medium.ttf")
+      doc.addFileToVFS("GenShinGothic-Regular.ttf", genShinGothicRegularFontBytes)
+      doc.addFont("GenShinGothic-Regular.ttf", GENSHIN_GOTHIC_REGULAR, "normal")
+      doc.addFileToVFS("GenShinGothic-Medium.ttf", genShinGothicMediumFontBytes)
+      doc.addFont("GenShinGothic-Medium.ttf", GENSHIN_GOTHIC_MEDIUM, "normal")
+    }
 
-    doc.addFileToVFS("GenShinGothic-Regular.ttf", genShinGothicRegularFontBytes)
-    doc.addFont("GenShinGothic-Regular.ttf", "GenShinGothicRegular", "normal")
-    doc.addFileToVFS("GenShinGothic-Medium.ttf", genShinGothicMediumFontBytes)
-    doc.addFont("GenShinGothic-Medium.ttf", "GenShinGothicMedium", "normal")
+    const SHIPPORI_MINCHO_MEDIUM = "ShippriMinchoMedium"
+    const SHIPPORI_MINCHO_BOLD = "ShipporiMinchoBold"
+    if (fontConfig === "ShipporiMincho") {
+      const shipporiMinchoRegularFontBytes = await loadFont("/ShipporiMincho-Medium.ttf")
+      const shipporiMinchoSemiBoldFontBytes = await loadFont("/ShipporiMincho-Bold.ttf")
+      doc.addFileToVFS("ShipporiMincho-Medium.ttf", shipporiMinchoRegularFontBytes)
+      doc.addFont("ShipporiMincho-Medium.ttf", SHIPPORI_MINCHO_MEDIUM, "normal")
+      doc.addFileToVFS("ShipporiMincho-Bold.ttf", shipporiMinchoSemiBoldFontBytes)
+      doc.addFont("ShipporiMincho-Bold.ttf", SHIPPORI_MINCHO_BOLD, "normal")
+    }
 
     for (let i = 0; i < captionTableData.length; i++) {
       const data = captionTableData[i]
@@ -35,13 +53,13 @@ export const createCaptionPdfWithJsPdf = (captionTableData: CaptionTableData): P
       }
 
       //Title
-      doc.setFont("GenShinGothicMedium")
+      doc.setFont(fontConfig === "ShipporiMincho" ? SHIPPORI_MINCHO_BOLD : GENSHIN_GOTHIC_MEDIUM)
       doc.setFontSize(layout.title.size)
       doc.setTextColor("#000000")
       doc.text(data.title, layout.title.x, layout.title.y)
 
       //Name
-      doc.setFont("GenShinGothicRegular")
+      doc.setFont(fontConfig === "ShipporiMincho" ? SHIPPORI_MINCHO_MEDIUM : GENSHIN_GOTHIC_REGULAR)
       doc.setFontSize(layout.name.size)
       doc.text(data.name, layout.name.x, layout.name.y)
 
@@ -57,13 +75,13 @@ export const createCaptionPdfWithJsPdf = (captionTableData: CaptionTableData): P
       doc.setFontSize(layout.size.size)
       doc.text(data.size, layout.size.x, layout.size.y, { align: "right" })
 
-      if (data.id !== "") {
+      if (data.id !== "" && showId) {
         //ID background
         doc.setFillColor("#000000")
         doc.circle(layout.idBackground.x, layout.idBackground.y, layout.idBackground.radius, "F")
 
         //ID
-        doc.setFont("GenShinGothicMedium")
+        doc.setFont(fontConfig === "ShipporiMincho" ? SHIPPORI_MINCHO_BOLD : GENSHIN_GOTHIC_MEDIUM)
         doc.setFontSize(layout.id.size)
         doc.setTextColor("#FFFFFF")
         doc.text(data.id, layout.id.x, layout.id.y, { align: "center" })
@@ -77,7 +95,14 @@ export const createCaptionPdfWithJsPdf = (captionTableData: CaptionTableData): P
   })
 }
 
-function arrayBufferToBinaryString(arrayBuffer: ArrayBuffer) {
+const loadFont = async (path: string): Promise<string> => {
+  return fetch(path).then(async (res) => {
+    const arrayBuffer = await res.arrayBuffer()
+    return arrayBufferToBinaryString(arrayBuffer)
+  })
+}
+
+const arrayBufferToBinaryString = (arrayBuffer: ArrayBuffer) => {
   let binaryString = ""
   const bytes = new Uint8Array(arrayBuffer)
   const len = bytes.byteLength
