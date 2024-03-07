@@ -7,13 +7,13 @@ import * as s from "./HomePageStyle"
 import CaptionCard from "@/components/caption/CaptionCard"
 import Button from "@/components/ui/Button"
 import ExampleImage from "@/components/caption/ExampleImage"
-import DownloadIcon from "@/components/icons/DownloadIcon"
 import PasteArea from "@/components/caption/PasteArea"
 import { CaptionTableData } from "@/features/caption/toCaptionTableData"
 import PreviewTable from "@/components/caption/PreviewTable"
 import Spacer from "@/components/ui/Spacer"
 import FlexContainer from "@/components/ui/FlexContainer"
 import CaptionConfig from "@/components/caption/CaptionConfig"
+import { ArrowRightIcon, DownloadIcon } from "@radix-ui/react-icons"
 
 const HomePage: React.FC = () => {
   const [captionTableData, setCaptionTableData] = useState<CaptionTableData | null>(null)
@@ -102,7 +102,7 @@ const HomePage: React.FC = () => {
 
         <div css={s.centerStyle}>
           <span css={s.arrorIcon}>
-            →
+            <ArrowRightIcon width={22} height={22} />
           </span>
         </div>
 
@@ -117,7 +117,7 @@ const HomePage: React.FC = () => {
                   onClick={onClickDownload}
                   style="text"
                 >
-                  <DownloadIcon size={28} />
+                  <DownloadIcon width={22} height={22} />
                   ダウンロード
                 </Button>
               </FlexContainer>
