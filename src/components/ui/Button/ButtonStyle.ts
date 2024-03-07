@@ -28,10 +28,10 @@ const containedButtonStyle = (isLoading: boolean) => css`
   ${isLoading && css`
     opacity: 0.3;
   `}
+  transition: all 0.2s ease-out;
 `
 
 const textButtonStyle = css`
-  /* margin: 0 auto; */
   font-size: 18px;
   border: none;
   color: ${primaryColor};
@@ -40,4 +40,5 @@ const textButtonStyle = css`
   }
   font-weight: 500;
   background-color: transparent;
+  transition: all 0.2s ease-out;
 `

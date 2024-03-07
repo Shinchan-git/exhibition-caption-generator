@@ -35,6 +35,7 @@ export const toggleItemStyle = css`
   &:first-child  {
     border: none;
   }
+  transition: all 0.2s ease-in-out;
 `
 export const checBoxContainerStyle = css`
   display: flex;
@@ -59,6 +60,7 @@ export const checkBoxRootStyle = css`
   &:hover {
     background-color: ${primaryHoverdColor};
   }
+  transition: all 0.2s ease-out;
 `
 export const checkBoxIndicatorStyle = css`
   color: ${primaryColor};

@@ -10,4 +10,5 @@ export const textareaStyle = css`
   &:focus {
     border: dashed #0095ff  3px;
   }
+  transition: all 0.2s ease-out;
 `
