@@ -31,7 +31,9 @@ const HomePage: React.FC = () => {
   }, [fontConfig, showId])
 
   const createCaption = () => {
-    if (!captionTableData) { return }
+    if (!captionTableData) {
+      return
+    }
     setIsSubmitLoading(true)
 
     asyncTask(async () => {
@@ -63,7 +65,10 @@ const HomePage: React.FC = () => {
   return (
     <div css={s.pageStyle}>
       <p css={s.titleStyle}>
-        <span>表データから</span><span>展覧会の</span><span>キャプションを</span><span>生成</span>
+        <span>表データから</span>
+        <span>展覧会の</span>
+        <span>キャプションを</span>
+        <span>生成</span>
       </p>
       <div css={s.containerStyle}>
         <CaptionCard title="表データ">
@@ -73,7 +78,7 @@ const HomePage: React.FC = () => {
             </PreviewTable>
           </div>
 
-          {captionTableData &&
+          {captionTableData && (
             <div css={s.buttonGroupContainer}>
               <Spacer size={28} />
               <CaptionConfig
@@ -97,19 +102,21 @@ const HomePage: React.FC = () => {
                 </Button>
               </FlexContainer>
             </div>
-          }
+          )}
         </CaptionCard>
 
         <div css={s.centerStyle}>
           <span css={s.arrorIcon}>
-            <ArrowRightIcon width={22} height={22} />
+            <ArrowRightIcon
+              width={22}
+              height={22}
+            />
           </span>
         </div>
 
         <CaptionCard title="PDF">
-          {pdfDataUrl
-            ?
-            <div css={s.iframeContainerStyle} >
+          {pdfDataUrl ? (
+            <div css={s.iframeContainerStyle}>
               <Iframe src={pdfDataUrl + "#toolbar=0"} />
               <Spacer size={12} />
               <FlexContainer justifyContent="center">
@@ -117,16 +124,19 @@ const HomePage: React.FC = () => {
                   onClick={onClickDownload}
                   style="text"
                 >
-                  <DownloadIcon width={22} height={22} />
+                  <DownloadIcon
+                    width={22}
+                    height={22}
+                  />
                   ダウンロード
                 </Button>
               </FlexContainer>
             </div>
-            :
+          ) : (
             <div>
               <ExampleImage />
             </div>
-          }
+          )}
         </CaptionCard>
       </div>
     </div>

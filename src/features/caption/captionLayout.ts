@@ -20,7 +20,7 @@ type CaptionElementLayout = Position & {
 }
 
 type CaptionLayout = CaptionData<CaptionElementLayout> & {
-  idBackground: Position & { radius: number },
+  idBackground: Position & { radius: number }
   rect: Position & Size
 }
 
@@ -47,24 +47,39 @@ export const captionLayout = ({ data, index }: Props): CaptionLayout => {
 
   //Title
   const maxTtitleSize = 19
-  const titleSize = Math.min(maxTtitleSize, Math.max(14, maxTtitleSize - (countTextLengthInZenakuLength(data.title) - 12)))
+  const titleSize = Math.min(
+    maxTtitleSize,
+    Math.max(14, maxTtitleSize - (countTextLengthInZenakuLength(data.title) - 12))
+  )
   const titlePosition: Position = { x: 8.5, y: 8.6 + maxTtitleSize / 3 }
 
   //Name
   const nameSize = 14
-  const namePosition: Position = { x: titlePosition.x, y: titlePosition.y + 8 + nameSize / 3 }
+  const namePosition: Position = {
+    x: titlePosition.x,
+    y: titlePosition.y + 8 + nameSize / 3
+  }
 
   //Grade
   const gradeSize = 13
-  const gradePosition: Position = { x: namePosition.x + 36, y: namePosition.y }
+  const gradePosition: Position = {
+    x: rectangleSize.width - titlePosition.x,
+    y: namePosition.y
+  }
 
   //Size
   const sizeSize = 11
-  const sizePotision: Position = { x: rectangleSize.width - titlePosition.x, y: rectangleSize.height - titlePosition.x }
+  const sizePotision: Position = {
+    x: gradePosition.x,
+    y: rectangleSize.height - titlePosition.x
+  }
 
   //Materials
   const materialsSize = 11
-  const materialsPosition: Position = { x: sizePotision.x, y: sizePotision.y - 4 - sizeSize / 3 }
+  const materialsPosition: Position = {
+    x: gradePosition.x,
+    y: sizePotision.y - 4 - sizeSize / 3
+  }
 
   //ID
   const idSize = 7
@@ -72,25 +87,60 @@ export const captionLayout = ({ data, index }: Props): CaptionLayout => {
 
   //ID backgroung
   const idBackgroundSize = 2.2
-  const idBackgroundPosition: Position = { x: idPosition.x - 0.1, y: idPosition.y - 0.9 }
+  const idBackgroundPosition: Position = {
+    x: idPosition.x - 0.1,
+    y: idPosition.y - 0.9
+  }
 
   return {
-    title: { x: rectanglePosition.x + titlePosition.x, y: rectanglePosition.y + titlePosition.y, size: titleSize },
-    name: { x: rectanglePosition.x + namePosition.x, y: rectanglePosition.y + namePosition.y, size: nameSize },
-    grade: { x: rectanglePosition.x + gradePosition.x, y: rectanglePosition.y + gradePosition.y, size: gradeSize },
-    materials: { x: rectanglePosition.x + materialsPosition.x, y: rectanglePosition.y + materialsPosition.y, size: materialsSize },
-    size: { x: rectanglePosition.x + sizePotision.x, y: rectanglePosition.y + sizePotision.y, size: sizeSize },
-    id: { x: rectanglePosition.x + idPosition.x, y: rectanglePosition.y + idPosition.y, size: idSize },
-    idBackground: { x: rectanglePosition.x + idBackgroundPosition.x, y: rectanglePosition.y + idBackgroundPosition.y, radius: idBackgroundSize },
-    rect: { x: rectanglePosition.x, y: rectanglePosition.y, width: rectangleSize.width, height: rectangleSize.height }
+    title: {
+      x: rectanglePosition.x + titlePosition.x,
+      y: rectanglePosition.y + titlePosition.y,
+      size: titleSize
+    },
+    name: {
+      x: rectanglePosition.x + namePosition.x,
+      y: rectanglePosition.y + namePosition.y,
+      size: nameSize
+    },
+    grade: {
+      x: rectanglePosition.x + gradePosition.x,
+      y: rectanglePosition.y + gradePosition.y,
+      size: gradeSize
+    },
+    materials: {
+      x: rectanglePosition.x + materialsPosition.x,
+      y: rectanglePosition.y + materialsPosition.y,
+      size: materialsSize
+    },
+    size: {
+      x: rectanglePosition.x + sizePotision.x,
+      y: rectanglePosition.y + sizePotision.y,
+      size: sizeSize
+    },
+    id: {
+      x: rectanglePosition.x + idPosition.x,
+      y: rectanglePosition.y + idPosition.y,
+      size: idSize
+    },
+    idBackground: {
+      x: rectanglePosition.x + idBackgroundPosition.x,
+      y: rectanglePosition.y + idBackgroundPosition.y,
+      radius: idBackgroundSize
+    },
+    rect: {
+      x: rectanglePosition.x,
+      y: rectanglePosition.y,
+      width: rectangleSize.width,
+      height: rectangleSize.height
+    }
   }
 }
-
 
 const countTextLengthInZenakuLength = (text: string): number => {
   let length = 0
   for (let i = 0; i < text.length; i++) {
-    (text[i].match(/[ -~]/)) ? length += 0.7 : length += 1
+    text[i].match(/[ -~]/) ? (length += 0.7) : (length += 1)
   }
   return length
 }
