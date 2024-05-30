@@ -1,5 +1,5 @@
-import { FILE_NAME } from "@/constants/constants";
-import { captionLayout, COLUMN_COUNT, ROW_COUNT } from "@/features/caption/captionLayout";
+import { FILE_NAME } from "@/constants/constants"
+import { captionLayout, COLUMN_COUNT, ROW_COUNT } from "@/features/caption/captionLayout"
 import { CaptionTableData } from "@/features/caption/toCaptionTableData"
 import { jsPDF } from "jspdf"
 
@@ -12,8 +12,8 @@ export const createCaptionPdfWithJsPdf = ({
   fontConfig,
   showId
 }: {
-  captionTableData: CaptionTableData,
-  fontConfig: FontConfig,
+  captionTableData: CaptionTableData
+  fontConfig: FontConfig
   showId: boolean
 }): Promise<JsPDF> => {
   return new Promise(async (resolve) => {
@@ -65,11 +65,13 @@ export const createCaptionPdfWithJsPdf = ({
 
       //Grade
       doc.setFontSize(layout.grade.size)
-      doc.text(data.grade, layout.grade.x, layout.grade.y)
+      doc.text(data.grade, layout.grade.x, layout.grade.y, { align: "right" })
 
       //Materials
       doc.setFontSize(layout.materials.size)
-      doc.text(data.materials, layout.materials.x, layout.materials.y, { align: "right" })
+      doc.text(data.materials, layout.materials.x, layout.materials.y, {
+        align: "right"
+      })
 
       //Size
       doc.setFontSize(layout.size.size)
