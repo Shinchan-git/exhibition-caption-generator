@@ -1,12 +1,13 @@
 import { TableData } from "./parseHtmlTableData"
 
 export type CaptionData<T = string> = {
-  title: T,
-  name: T,
-  grade: T,
-  materials: T,
-  size: T,
+  title: T
+  name: T
+  grade: T
+  materials: T
+  size: T
   id: T
+  camera: T
 }
 
 export type CaptionTableData = CaptionData[]
@@ -19,7 +20,8 @@ export const toCaptionTableData = (tableData: TableData): CaptionTableData => {
       grade: row[2] ?? "",
       materials: row[3] ?? "",
       size: row[4] ?? "",
-      id: row[5] ?? ""
+      id: row[5] ?? "",
+      camera: row[6] ?? ""
     }
   })
 
