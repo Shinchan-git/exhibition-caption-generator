@@ -92,6 +92,13 @@ export const captionLayout = ({ data, index }: Props): CaptionLayout => {
     y: idPosition.y - 0.9
   }
 
+  //Camera
+  const cameraSize = 8
+  const cameraPositoin: Position = {
+    x: titlePosition.x,
+    y: sizePotision.y - cameraSize + 1
+  }
+
   return {
     title: {
       x: rectanglePosition.x + titlePosition.x,
@@ -122,6 +129,11 @@ export const captionLayout = ({ data, index }: Props): CaptionLayout => {
       x: rectanglePosition.x + idPosition.x,
       y: rectanglePosition.y + idPosition.y,
       size: idSize
+    },
+    camera: {
+      x: rectanglePosition.x + cameraPositoin.x,
+      y: rectanglePosition.y + cameraPositoin.y,
+      size: cameraSize
     },
     idBackground: {
       x: rectanglePosition.x + idBackgroundPosition.x,

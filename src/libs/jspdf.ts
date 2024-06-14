@@ -44,6 +44,9 @@ export const createCaptionPdfWithJsPdf = ({
       doc.addFont("ShipporiMincho-Bold.ttf", SHIPPORI_MINCHO_BOLD, "normal")
     }
 
+    const CAMERA_IMG = new Image()
+    CAMERA_IMG.src = "/camera.jpg"
+
     for (let i = 0; i < captionTableData.length; i++) {
       const data = captionTableData[i]
       const layout = captionLayout({ data: data, index: i })
@@ -87,6 +90,11 @@ export const createCaptionPdfWithJsPdf = ({
         doc.setFontSize(layout.id.size)
         doc.setTextColor("#FFFFFF")
         doc.text(data.id, layout.id.x, layout.id.y, { align: "center" })
+      }
+
+      //Camera
+      if (data.camera === "NO" || data.camera === "1" || data.camera === "F" || data.camera === "FALSE") {
+        doc.addImage(CAMERA_IMG, "JPEG", layout.camera.x, layout.camera.y, layout.camera.size, layout.camera.size)
       }
 
       //Rectangle
