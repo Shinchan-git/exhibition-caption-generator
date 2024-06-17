@@ -1,6 +1,7 @@
 import { FILE_NAME } from "@/constants/constants"
 import { captionLayout, COLUMN_COUNT, ROW_COUNT } from "@/features/caption/captionLayout"
 import { CaptionTableData } from "@/features/caption/toCaptionTableData"
+import { removeSpace } from "@/utils/removeSpace"
 import { jsPDF } from "jspdf"
 
 export type JsPDF = jsPDF
@@ -80,7 +81,7 @@ export const createCaptionPdfWithJsPdf = ({
       doc.setFontSize(layout.size.size)
       doc.text(data.size, layout.size.x, layout.size.y, { align: "right" })
 
-      if (data.id !== "" && showId) {
+      if (removeSpace(data.id) !== "" && showId) {
         //ID background
         doc.setFillColor("#000000")
         doc.circle(layout.idBackground.x, layout.idBackground.y, layout.idBackground.radius, "F")
