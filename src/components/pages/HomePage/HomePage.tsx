@@ -56,6 +56,7 @@ const HomePage: React.FC = () => {
   const onClear = () => {
     setCaptionTableData(null)
     setPdfDataUrl(null)
+    setShowId(true)
   }
 
   const onClickDownload: React.MouseEventHandler<HTMLButtonElement> = () => {
